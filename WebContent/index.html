@@ -24,6 +24,19 @@
 	<link rel="stylesheet" href="css/style-xlarge.css" />
 </noscript>
 <!--[if lte IE 8]><link rel="stylesheet" href="css/ie/v8.css" /><![endif]-->
+<script>
+	function getAge(dateString) {
+		var today = new Date();
+		var birthDate = new Date(dateString);
+		var age = today.getFullYear() - birthDate.getFullYear();
+		var m = today.getMonth() - birthDate.getMonth();
+		if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
+			age--;
+		}
+		return age;
+	}
+	var age = getAge("23-Aug-1990");
+</script>
 </head>
 <body>
 	<div id="wrapper">
@@ -37,14 +50,17 @@
 					<a href="#">Ross Andreucetti</a>
 				</h1>
 				<p>
-					24 year old software developer<br /> and frisbee international
+					<script>
+						document.write(age)
+					</script>
+					year old software developer<br /> and frisbee international
 				</p>
 			</header>
 			<nav id="nav">
 				<ul>
-					<li><a href="#one" class="active">About</a></li>
+					<li><a href="#one" class="active">About Me</a></li>
 					<li><a href="#two">Things I Can Do</a></li>
-					<li><a href="#three">A Few Accomplishments</a></li>
+					<li><a href="#three">Other stuff I like</a></li>
 					<li><a href="#four">Contact</a></li>
 				</ul>
 			</nav>
@@ -52,12 +68,12 @@
 				<ul class="icons">
 					<li><a href="https://twitter.com/RossAndreucetti"
 						class="icon fa-twitter" target="_blank"><span class="label">Twitter</span></a></li>
-					<li><a href="https://www.facebook.com/ross.andreucetti123"
-						class="icon fa-facebook" target="_blank"><span class="label">Facebook</span></a></li>
+					<li><a href="https://www.flickr.com/photos/125311934@N08/"
+						class="icon fa-flickr" target="_blank"><span class="label">flickr</span></a></li>
 					<li><a href="https://www.linkedin.com/in/rossandreucetti"
 						class="icon fa-linkedin" target="_blank"><span class="label">LinkedIn</span></a></li>
-					<li><a href="https://instagram.com/rossand559/"
-						class="icon fa-instagram" target="_blank"><span class="label">Instagram</span></a></li>
+					<li><a href="#" class="icon fa-file-pdf-o" target="_blank"><span
+							class="label">Résumé</span></a></li>
 					<li><a href="https://github.com/randreucetti"
 						class="icon fa-github" target="_blank"><span class="label">Github</span></a></li>
 					<li><a href="mailto:ross.andreucetti@gmail.com"
@@ -73,7 +89,7 @@
 			<section id="one">
 				<div class="container">
 					<header class="major">
-						<h2>Read Only</h2>
+						<h2>About me</h2>
 						<p>
 							Just an incredibly simple responsive site<br /> template freebie
 							by <a href="http://html5up.net">HTML5 UP</a>.
@@ -92,16 +108,20 @@
 			<section id="two">
 				<div class="container">
 					<h3>Things I Can Do</h3>
-					<p>Integer eu ante ornare amet commetus vestibulum blandit
-						integer in curae ac faucibus integer non. Adipiscing cubilia
-						elementum integer lorem ipsum dolor sit amet.</p>
+					<p>
+						Here are the main technologies that I am actively working on, for
+						a bit more detail make sure to check out my <a href="#">résumé</a>
+						or my <a href="https://www.linkedin.com/in/rossandreucetti">LinkedIn</a>
+						and <a href="https://github.com/randreucetti">GitHub</a> pages in
+						the sidebar.
+					</p>
 					<ul class="feature-icons">
-						<li class="fa-code">Write all the code</li>
-						<li class="fa-cubes">Stack small boxes</li>
-						<li class="fa-book">Read books and stuff</li>
-						<li class="fa-coffee">Drink much coffee</li>
-						<li class="fa-bolt">Lightning bolt</li>
-						<li class="fa-users">Shadow clone technique</li>
+						<li class="fa-code">Java(SE and EE), C++</li>
+						<li class="fa-heartbeat">Test Driven Development</li>
+						<li class="fa-cloud">Web Application Development</li>
+						<li class="fa-server">Linux and Windows Configuration</li>
+						<li class="fa-wifi">Network Protocols and Implementation</li>
+						<li class="fa-users">Agile Software Development</li>
 					</ul>
 				</div>
 			</section>
