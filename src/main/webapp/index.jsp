@@ -19,6 +19,7 @@
 <script src="js/skel.min.js"></script>
 <script src="js/skel-layers.min.js"></script>
 <script src="js/init.js"></script>
+<script src="https://www.google.com/recaptcha/api.js" async defer></script>
 <noscript>
 	<link rel="stylesheet" href="css/skel.css" />
 	<link rel="stylesheet" href="css/style.css" />
@@ -233,6 +234,7 @@
 									<li><input type="submit" class="special"
 										value="Send Message" /></li>
 									<li><input type="reset" value="Reset Form" /></li>
+									<li><div class="g-recaptcha" data-sitekey="6LeYcwUTAAAAAB6PLRyYruKDs4RJYcdIzwI7aIvd"></div></li>
 								</ul>
 							</div>
 						</div>
