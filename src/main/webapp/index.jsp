@@ -4,7 +4,7 @@
 	html5up.net | @n33co
 	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
 -->
-<%@ taglib prefix="s" uri="/struts-tags" %>
+<%@ taglib prefix="s" uri="/struts-tags"%>
 <html>
 <head>
 <title>Ross Andreucetti</title>
@@ -54,6 +54,19 @@
 
 	ga('create', 'UA-61936052-1', 'auto');
 	ga('send', 'pageview');
+
+	$(document).ready(function() {
+		$('#submit').click(function() {
+			$.post("contact.action", {
+				name : $("#name").val(),
+				email : $("#email").val(),
+				subject : $("#subject").val(),
+				message : $("#message").val(),
+			}, function(data, status) {
+			});
+			return false;
+		});
+	});
 </script>
 </head>
 <body>
@@ -231,10 +244,11 @@
 						<div class="row uniform">
 							<div class="12u">
 								<ul class="actions">
-									<li><input type="submit" class="special"
+									<li><input type="submit" id="submit" class="special"
 										value="Send Message" /></li>
 									<li><input type="reset" value="Reset Form" /></li>
-									<li><div class="g-recaptcha" data-sitekey="6LeYcwUTAAAAAB6PLRyYruKDs4RJYcdIzwI7aIvd"></div></li>
+									<li><div class="g-recaptcha"
+											data-sitekey="6LeYcwUTAAAAAB6PLRyYruKDs4RJYcdIzwI7aIvd"></div></li>
 								</ul>
 							</div>
 						</div>

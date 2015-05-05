@@ -1,6 +1,7 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-	<groupId>com.randreucetti.portfolio</groupId>
+	<groupId>com.randreucetti</groupId>
 	<artifactId>portfolio</artifactId>
 	<version>1.0.0-SNAPSHOT</version>
 	<packaging>war</packaging>
@@ -12,7 +13,10 @@
 		<slf4jVersion>1.7.12</slf4jVersion>
 		<mvnCmplrPluginVersion>3.3</mvnCmplrPluginVersion>
 		<javaVersion>1.7</javaVersion>
+		<hibernateVersion>4.3.9.Final</hibernateVersion>
+		<ojdbc6Version>11.2.0.4</ojdbc6Version>
 		<strutsVersion>2.3.20</strutsVersion>
+		<springVersion>4.1.6.RELEASE</springVersion>
 	</properties>
 	<dependencies>
 		<dependency>
@@ -28,17 +32,27 @@
 			<version>${slf4jVersion}</version>
 			<exclusions></exclusions>
 		</dependency>
-
 		<dependency>
 			<groupId>org.apache.struts</groupId>
 			<artifactId>struts2-core</artifactId>
 			<version>${strutsVersion}</version>
 		</dependency>
 		<dependency>
+			<groupId>org.apache.struts</groupId>
+			<artifactId>struts-taglib</artifactId>
+			<version>1.3.10</version>
+		</dependency>
+		<dependency>
 			<groupId>javax.servlet</groupId>
 			<artifactId>servlet-api</artifactId>
 			<version>2.5</version>
 		</dependency>
+		<dependency>
+			<groupId>com.amazonaws</groupId>
+			<artifactId>aws-java-sdk</artifactId>
+			<version>1.9.33</version>
+		</dependency>
+
 	</dependencies>
 
 	<build>
