@@ -1,11 +1,18 @@
 package com.randreucetti.portfolio.actions;
 
+import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.validator.EmailValidator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.amazonaws.services.simpleemail.*;
-import com.amazonaws.services.simpleemail.model.*;
-import com.amazonaws.regions.*;
+import com.amazonaws.regions.Region;
+import com.amazonaws.regions.Regions;
+import com.amazonaws.services.simpleemail.AmazonSimpleEmailServiceClient;
+import com.amazonaws.services.simpleemail.model.Body;
+import com.amazonaws.services.simpleemail.model.Content;
+import com.amazonaws.services.simpleemail.model.Destination;
+import com.amazonaws.services.simpleemail.model.Message;
+import com.amazonaws.services.simpleemail.model.SendEmailRequest;
 import com.opensymphony.xwork2.ActionSupport;
 
 public class ContactAction extends ActionSupport {
@@ -14,7 +21,7 @@ public class ContactAction extends ActionSupport {
 
 	private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
-	static final String FROM = "ross.andreucetti@gmail.com";
+	static final String FROM = "contact@randreucetti.com";
 	static final String TO = "ross.andreucetti@gmail.com";
 
 	private String name;
@@ -75,6 +82,22 @@ public class ContactAction extends ActionSupport {
 		} catch (Exception ex) {
 			logger.error("The email was not sent.");
 			logger.error("Error message: " + ex.getMessage());
+		}
+	}
+	
+	public void validate(){
+		logger.info("Validate being called.");
+		if(StringUtils.isBlank(name)){
+			this.addFieldError("name", "Name must not be blank");
+		}
+		if(EmailValidator.getInstance().isValid(email)){
+			this.addFieldError("email", "Please enter a valid email");
+		}
+		if(StringUtils.isBlank(subject)){
+			this.addFieldError("subject", "Subject must not be blank");
+		}
+		if(StringUtils.isBlank(message)){
+			this.addFieldError("message", "Message must not be empty");
 		}
 	}
 

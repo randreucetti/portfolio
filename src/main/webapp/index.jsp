@@ -220,39 +220,41 @@
 					<p>If you'd like to get in touch with me about any of my work
 						or even my non work related fun stuff! Drop me a line below, or
 						you can get my email from the side panel.</p>
-					<form method="post" action="#">
+					<s:form method="post" action="contact" theme="simple">
 						<div class="row uniform">
 							<div class="6u 12u(xsmall)">
-								<input type="text" name="name" id="name" placeholder="Name" />
+								<s:textfield type="text" name="name" id="name"
+									placeholder="Name" />
 							</div>
 							<div class="6u 12u(xsmall)">
-								<input type="email" name="email" id="email" placeholder="Email" />
+								<s:textfield type="text" name="email" id="email"
+									placeholder="Email" />
 							</div>
 						</div>
 						<div class="row uniform">
 							<div class="12u">
-								<input type="text" name="subject" id="subject"
+								<s:textfield type="text" name="subject" id="subject"
 									placeholder="Subject" />
 							</div>
 						</div>
 						<div class="row uniform">
 							<div class="12u">
-								<textarea name="message" id="message" placeholder="Message"
-									rows="6"></textarea>
+								<s:textarea name="message" id="message" placeholder="Message"
+									rows="6" />
 							</div>
 						</div>
 						<div class="row uniform">
 							<div class="12u">
 								<ul class="actions">
-									<li><input type="submit" id="submit" class="special"
-										value="Send Message" /></li>
-									<li><input type="reset" value="Reset Form" /></li>
+									<li><s:submit id="submit" class="special"
+											value="Send Message" /></li>
+									<li><s:reset value="Reset Form" /></li>
 									<li><div class="g-recaptcha"
 											data-sitekey="6LeYcwUTAAAAAB6PLRyYruKDs4RJYcdIzwI7aIvd"></div></li>
 								</ul>
 							</div>
 						</div>
-					</form>
+					</s:form>
 				</div>
 			</section>
 
