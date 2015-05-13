@@ -1,7 +1,19 @@
 package com.randreucetti.portfolio.actions;
 
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.validator.EmailValidator;
+import org.apache.http.HttpResponse;
+import org.apache.http.NameValuePair;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.entity.UrlEncodedFormEntity;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.impl.client.HttpClientBuilder;
+import org.apache.http.message.BasicNameValuePair;
+import org.apache.http.util.EntityUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -13,6 +25,8 @@ import com.amazonaws.services.simpleemail.model.Content;
 import com.amazonaws.services.simpleemail.model.Destination;
 import com.amazonaws.services.simpleemail.model.Message;
 import com.amazonaws.services.simpleemail.model.SendEmailRequest;
+import com.amazonaws.util.json.JSONException;
+import com.amazonaws.util.json.JSONObject;
 import com.opensymphony.xwork2.ActionSupport;
 
 public class ContactAction extends ActionSupport {
@@ -28,6 +42,7 @@ public class ContactAction extends ActionSupport {
 	private String email;
 	private String subject;
 	private String message;
+	private String recaptchaResponse;
 
 	public void contact() {
 		logger.info("Name: {}", name);
@@ -46,8 +61,8 @@ public class ContactAction extends ActionSupport {
 		Message message = new Message().withSubject(subjectCtx).withBody(body);
 
 		// Assemble the email.
-		SendEmailRequest request = new SendEmailRequest().withSource(FROM).withDestination(destination)
-				.withMessage(message).withReplyToAddresses(email);
+		SendEmailRequest request = new SendEmailRequest().withSource(FROM).withDestination(destination).withMessage(message)
+				.withReplyToAddresses(email);
 
 		try {
 			logger.info("Attempting to send an email through Amazon SES by using the AWS SDK for Java...");
@@ -84,20 +99,53 @@ public class ContactAction extends ActionSupport {
 			logger.error("Error message: " + ex.getMessage());
 		}
 	}
-	
-	public void validate(){
+
+	public void validate() {
 		logger.info("Validate being called.");
-		if(StringUtils.isBlank(name)){
+		if (StringUtils.isBlank(name)) {
 			this.addFieldError("name", "Name must not be blank");
 		}
-		if(EmailValidator.getInstance().isValid(email)){
+		if (EmailValidator.getInstance().isValid(email)) {
 			this.addFieldError("email", "Please enter a valid email");
 		}
-		if(StringUtils.isBlank(subject)){
+		if (StringUtils.isBlank(subject)) {
 			this.addFieldError("subject", "Subject must not be blank");
 		}
-		if(StringUtils.isBlank(message)){
+		if (StringUtils.isBlank(message)) {
 			this.addFieldError("message", "Message must not be empty");
+		}
+		if(!isCaptchaValid(recaptchaResponse)){
+			this.addFieldError("captcha", "Recaptcha could not validate you");
+		}
+
+		logger.info("recaptcha: {}", recaptchaResponse);
+	}
+
+	private boolean isCaptchaValid(String recaptchaResponse) {
+		HttpClient client = HttpClientBuilder.create().build();
+		HttpPost post = new HttpPost("https://www.google.com/recaptcha/api/siteverify");
+		try {
+			List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(1);
+			nameValuePairs.add(new BasicNameValuePair("secret", "6LeYcwUTAAAAABQ04HpD7qlnRfGKiUrLB9Yge5Yw"));
+			nameValuePairs.add(new BasicNameValuePair("response", recaptchaResponse));
+			post.setEntity(new UrlEncodedFormEntity(nameValuePairs));
+
+			HttpResponse response = client.execute(post);
+			String json_string = EntityUtils.toString(response.getEntity());
+			JSONObject jsonResponse = new JSONObject(json_string);
+			if(jsonResponse.getBoolean("success")){
+				logger.info("Recaptcha validation has succeeded");
+				return true;
+			} else {
+				logger.error("Recaptcha validation failed with error codes: {}", jsonResponse.get("error-codes"));
+				return false;
+			}
+		} catch (IOException e) {
+			logger.error("Caught IOException: {}", e.getMessage());
+			return false;
+		} catch (JSONException e) {
+			logger.error("Caught JSONException: {}", e.getMessage());
+			return false;
 		}
 	}
 
@@ -131,6 +179,14 @@ public class ContactAction extends ActionSupport {
 
 	public void setMessage(String message) {
 		this.message = message;
+	}
+
+	public String getRecaptchaResponse() {
+		return recaptchaResponse;
+	}
+
+	public void setRecaptchaResponse(String recaptchaResponse) {
+		this.recaptchaResponse = recaptchaResponse;
 	}
 
 }

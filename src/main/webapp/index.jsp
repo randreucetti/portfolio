@@ -62,6 +62,7 @@
 				email : $("#email").val(),
 				subject : $("#subject").val(),
 				message : $("#message").val(),
+				recaptchaResponse : grecaptcha.getResponse()
 			}, function(data, status) {
 			});
 			return false;

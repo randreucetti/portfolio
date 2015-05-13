@@ -5,6 +5,8 @@
 <struts>
 	<constant name="struts.devMode" value="true" />
 	<package name="default" extends="struts-default">
-		<action name="contact" class="com.randreucetti.portfolio.actions.ContactAction" method="contact" />
+		<action name="contact" class="com.randreucetti.portfolio.actions.ContactAction" method="contact">
+			<result name="input">index.jsp</result>
+		</action>
 	</package>
 </struts>
