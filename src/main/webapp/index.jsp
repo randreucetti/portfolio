@@ -38,8 +38,8 @@
 		return age;
 	}
 	var age = getAge("23-Aug-1990");
-	
-	function copyRecaptcha(){
+
+	function copyRecaptcha() {
 		$("#recaptchaResponse").val(grecaptcha.getResponse());
 	}
 
@@ -60,16 +60,15 @@
 	ga('send', 'pageview');
 </script>
 <style>
-.errorMessages {
-	display: block; list-style-type : disc;
-	margin: 0 10px 15px 10px;
-	padding: 8px 35px 8px 30px;
-	color: #B94A48;
-	background-color: #F2DEDE;
-	border: 2px solid #EED3D7;
-	border-radius: 4px;
-	text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
-	list-style-type: disc;
+.errors {
+	background-color: #FFCCCC;
+	border: 1px solid #CC0000;
+	width: 400px;
+	margin-bottom: 8px;
+}
+
+.errors li {
+	list-style: none;
 }
 </style>
 </head>
@@ -224,27 +223,28 @@
 					<p>If you'd like to get in touch with me about any of my work
 						or even my non work related fun stuff! Drop me a line below, or
 						you can get my email from the side panel.</p>
-					<s:form method="post" action="contact" theme="simple" onsubmit="copyRecaptcha()">
+					<s:form method="post" action="contact" theme="simple"
+						onsubmit="copyRecaptcha()">
 						<div class="row uniform">
 							<div class="6u 12u(xsmall)">
-								<s:textfield type="text" required="required" name="name" id="name"
-									placeholder="Name" />
+								<s:textfield type="text" required="required" name="name"
+									id="name" placeholder="Name" />
 							</div>
 							<div class="6u 12u(xsmall)">
-								<s:textfield  type="email" required="required" name="email" id="email"
-									placeholder="Email" />
+								<s:textfield type="email" required="required" name="email"
+									id="email" placeholder="Email" />
 							</div>
 						</div>
 						<div class="row uniform">
 							<div class="12u">
-								<s:textfield type="text" required="required" name="subject" id="subject"
-									placeholder="Subject" />
+								<s:textfield type="text" required="required" name="subject"
+									id="subject" placeholder="Subject" />
 							</div>
 						</div>
 						<div class="row uniform">
 							<div class="12u">
-								<s:textarea name="message" required="required" id="message" placeholder="Message"
-									rows="6" />
+								<s:textarea name="message" required="required" id="message"
+									placeholder="Message" rows="6" />
 							</div>
 						</div>
 						<div class="row uniform">
@@ -258,6 +258,9 @@
 											data-sitekey="6LeYcwUTAAAAAB6PLRyYruKDs4RJYcdIzwI7aIvd"></div></li>
 								</ul>
 							</div>
+						</div>
+						<div class="errors row uniform">
+							<s:actionerror />
 						</div>
 					</s:form>
 				</div>

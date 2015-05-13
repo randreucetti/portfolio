@@ -42,7 +42,7 @@ public class ContactAction extends ActionSupport {
 	private String message;
 	private String recaptchaResponse;
 
-	public void contact() {
+	public String contact() {
 		logger.info("Name: {}", name);
 		logger.info("email: {}", email);
 		logger.info("subject: {}", subject);
@@ -92,9 +92,11 @@ public class ContactAction extends ActionSupport {
 			// Send the email.
 			client.sendEmail(request);
 			logger.info("Email sent!");
+			return SUCCESS;
 		} catch (Exception ex) {
 			logger.error("The email was not sent.");
 			logger.error("Error message: " + ex.getMessage());
+			return INPUT;
 		}
 	}
 
