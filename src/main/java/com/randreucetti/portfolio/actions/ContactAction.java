@@ -4,8 +4,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.commons.lang3.StringUtils;
-import org.apache.commons.validator.EmailValidator;
 import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.HttpClient;
@@ -35,8 +33,8 @@ public class ContactAction extends ActionSupport {
 
 	private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
-	static final String FROM = "######################";
-	static final String TO = "######################";
+	static final String FROM = "contact@randreucetti.com";
+	static final String TO = "ross.andreucetti@gmail.com";
 
 	private String name;
 	private String email;
@@ -102,23 +100,9 @@ public class ContactAction extends ActionSupport {
 
 	public void validate() {
 		logger.info("Validate being called.");
-		if (StringUtils.isBlank(name)) {
-			this.addFieldError("name", "Name must not be blank");
-		}
-		if (EmailValidator.getInstance().isValid(email)) {
-			this.addFieldError("email", "Please enter a valid email");
-		}
-		if (StringUtils.isBlank(subject)) {
-			this.addFieldError("subject", "Subject must not be blank");
-		}
-		if (StringUtils.isBlank(message)) {
-			this.addFieldError("message", "Message must not be empty");
-		}
 		if(!isCaptchaValid(recaptchaResponse)){
-			this.addFieldError("captcha", "Recaptcha could not validate you");
+			this.addActionError("Recaptcha failed to validate you. Please try again.");
 		}
-
-		logger.info("recaptcha: {}", recaptchaResponse);
 	}
 
 	private boolean isCaptchaValid(String recaptchaResponse) {
@@ -126,7 +110,7 @@ public class ContactAction extends ActionSupport {
 		HttpPost post = new HttpPost("https://www.google.com/recaptcha/api/siteverify");
 		try {
 			List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(1);
-			nameValuePairs.add(new BasicNameValuePair("secret", "######################"));
+			nameValuePairs.add(new BasicNameValuePair("secret", "6LeYcwUTAAAAABQ04HpD7qlnRfGKiUrLB9Yge5Yw"));
 			nameValuePairs.add(new BasicNameValuePair("response", recaptchaResponse));
 			post.setEntity(new UrlEncodedFormEntity(nameValuePairs));
 
@@ -188,5 +172,4 @@ public class ContactAction extends ActionSupport {
 	public void setRecaptchaResponse(String recaptchaResponse) {
 		this.recaptchaResponse = recaptchaResponse;
 	}
-
 }

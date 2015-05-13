@@ -6,7 +6,12 @@
 	<constant name="struts.devMode" value="true" />
 	<package name="default" extends="struts-default">
 		<action name="contact" class="com.randreucetti.portfolio.actions.ContactAction" method="contact">
-			<result name="input">index.jsp</result>
+			<interceptor-ref name="validation" />
+			<interceptor-ref name="workflow" />
+			<result name="input" type="redirect">
+				<param name="location">index.jsp</param>
+				<param name="anchor">four</param>
+			</result>
 		</action>
 	</package>
 </struts>
