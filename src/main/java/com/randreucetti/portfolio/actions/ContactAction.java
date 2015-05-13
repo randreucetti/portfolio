@@ -35,8 +35,8 @@ public class ContactAction extends ActionSupport {
 
 	private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
-	static final String FROM = "contact@randreucetti.com";
-	static final String TO = "ross.andreucetti@gmail.com";
+	static final String FROM = "######################";
+	static final String TO = "######################";
 
 	private String name;
 	private String email;
@@ -126,7 +126,7 @@ public class ContactAction extends ActionSupport {
 		HttpPost post = new HttpPost("https://www.google.com/recaptcha/api/siteverify");
 		try {
 			List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(1);
-			nameValuePairs.add(new BasicNameValuePair("secret", "6LeYcwUTAAAAABQ04HpD7qlnRfGKiUrLB9Yge5Yw"));
+			nameValuePairs.add(new BasicNameValuePair("secret", "######################"));
 			nameValuePairs.add(new BasicNameValuePair("response", recaptchaResponse));
 			post.setEntity(new UrlEncodedFormEntity(nameValuePairs));
 
