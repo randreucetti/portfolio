@@ -26,6 +26,14 @@
 	<link rel="stylesheet" href="css/style-xlarge.css" />
 </noscript>
 <!--[if lte IE 8]><link rel="stylesheet" href="css/ie/v8.css" /><![endif]-->
+<s:if test="hasActionErrors()">
+	<script>
+		$(document).ready(function() {
+			location.href = '#four';
+		});
+	</script>
+</s:if>
+
 <script>
 	function getAge(dateString) {
 		var today = new Date();
@@ -59,18 +67,6 @@
 	ga('create', 'UA-61936052-1', 'auto');
 	ga('send', 'pageview');
 </script>
-<style>
-.errors {
-	background-color: #FFCCCC;
-	border: 1px solid #CC0000;
-	width: 400px;
-	margin-bottom: 8px;
-}
-
-.errors li {
-	list-style: none;
-}
-</style>
 </head>
 <body>
 	<div id="wrapper">
